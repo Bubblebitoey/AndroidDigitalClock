@@ -3,7 +3,7 @@
 
     <item
             android:id="@+id/navigation_clock"
-            android:icon="@drawable/ic_worldClock_24dp"
+            android:icon="@drawable/ic_clock_24dp"
             android:title="@string/menu_clock"/>
     <item
                 android:id="@+id/navigation_alarm"

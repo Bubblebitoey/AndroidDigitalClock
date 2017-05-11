@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DigitalClock;
@@ -21,15 +22,14 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 			switch (item.getItemId()) {
-				case R.id.navigation_home:
-					
-					mTextMessage.setText(R.string.title_home);
+				case R.id.navigation_alarm:
+					mTextMessage.setText(R.string.menu_alarm);
 					return true;
-				case R.id.navigation_dashboard:
-					mTextMessage.setText(R.string.title_dashboard);
+				case R.id.navigation_clock:
+					mTextMessage.setText(R.string.menu_clock);
 					return true;
-				case R.id.navigation_notifications:
-					mTextMessage.setText(R.string.title_notifications);
+				case R.id.navigation_timer:
+					mTextMessage.setText(R.string.menu_timer);
 					return true;
 			}
 			return false;
@@ -49,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		mTextMessage = (TextView) findViewById(R.id.message);
-		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//		mTextMessage = (TextView) findViewById(R.id.message);
+//		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+		
 	}
-
+	public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
 }
