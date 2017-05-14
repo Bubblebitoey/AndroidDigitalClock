@@ -55,7 +55,6 @@ public class ShowTime extends AppCompatActivity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
 			
-			
 			listTime = (ListView) findViewById(R.id.listView);
 			currentTime = (TextView) findViewById(R.id.current_time);
 			currTimeZone = (TextView) findViewById(R.id.curr_time_zone);
@@ -112,7 +111,7 @@ public class ShowTime extends AppCompatActivity {
 			currentTime = (TextView) currentTime.findViewById(R.id.current_time);
 			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm a, zzzz");
 			currentTime.setText(String.valueOf(c.getTime()));
-			currentTime.setText(DATE_FORMAT.format(c.getTime()));
+//			currentTime.setText(DATE_FORMAT.format(c.getTime()));
 			millisec = c.getTimeInMillis();
 			TimeZone curr = c.getTimeZone();
 			int offset = curr.getRawOffset();
@@ -121,6 +120,7 @@ public class ShowTime extends AppCompatActivity {
 			}
 			millisec -= offset;
 			date = new Date(millisec);
+		    currentTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
 			System.out.println(DATE_FORMAT.format(date));
 		}
 }

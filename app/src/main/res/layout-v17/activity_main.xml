@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:id="@+id/listView"
-                android:layout_weight="1.08"/>
+                android:layout_weight="1.00"/>
 
 
     </LinearLayout>
