@@ -89,11 +89,12 @@ public class ShowTime extends AppCompatActivity {
 							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 							currTimeZone.setText(DATE_FORMAT.format(date));
 							millisec = 0;
+							//Add this after select item list will disappear
+							listTime.setVisibility(View.INVISIBLE);
 						}
 					});
 				}
 			});
-			
 			
 			/**
 			 * List part

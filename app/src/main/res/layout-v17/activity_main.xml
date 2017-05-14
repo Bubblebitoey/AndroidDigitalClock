@@ -46,11 +46,6 @@
                 app:srcCompat="@android:drawable/ic_input_add"
                 android:id="@+id/floatingActionButton"/>
 
-        <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"/>
-
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
