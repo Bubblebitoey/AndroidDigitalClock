@@ -11,22 +11,60 @@
         android:orientation="vertical"
         tools:context="com.example.bubblebitoey.clock.MainActivity">
 
-    <DigitalClock
-            android:id="@+id/digitalClockThailand"
-            android:layout_width="wrap_content"
+
+    <TextClock
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_centerInParent="true"/>
+            android:id="@+id/textClock5"
+            android:layout_weight="0.09"/>
 
-
-    <FrameLayout
+    <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_weight="1">
 
-    </FrameLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Current time"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/current_time"/>
+
+        <android.support.design.widget.FloatingActionButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:clickable="true"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_input_add"
+                android:id="@+id/floatingActionButton"/>
+
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:id="@+id/time_zone"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:id="@+id/curr_time_zone"/>
+
+
+    </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
