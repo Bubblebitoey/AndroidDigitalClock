@@ -28,7 +28,7 @@ public class ShowTime extends AppCompatActivity {
 	private ArrayAdapter<String> availableId;
 	private long millisec;
 	private Date date;
-	private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm, zzzz", Locale.ENGLISH);
+	private SimpleDateFormat DATE_FORMAT;
 	
 	
 	private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,44 +86,12 @@ public class ShowTime extends AppCompatActivity {
 							date = new Date(millisec);
 							System.out.println(DATE_FORMAT.format(date));
 							
-							txtTimeZone.setText(TimeZoneName + " :GMT" + hours + ":" + minutes);
+						    txtTimeZone.setText(TimeZoneName + " : GMT" + hours + ":" + minutes);
+							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 							currTimeZone.setText(DATE_FORMAT.format(date));
 							millisec = 0;
 						}
 					});
-					
-					/**
-					 * Spinner part
-					 */
-//					spinner.setVisibility(View.VISIBLE);
-//					spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//						@Override
-//						public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//							//getGMT();
-//							getTime();
-//							String selectedID = (String) (parent.getItemAtPosition(position));
-//
-//							TimeZone timeZone = TimeZone.getTimeZone(selectedID);
-//							String TimeZoneName = timeZone.getDisplayName();
-//
-//							int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
-//							int hours = timeZoneOffset / 60;
-//							int minutes = timeZoneOffset % 60;
-//							millisec = millisec + timeZone.getRawOffset();
-//
-//							date = new Date(millisec);
-//							System.out.println(DATE_FORMAT.format(date));
-//
-//							txtTimeZone.setText(TimeZoneName + " :GMT" + hours + ":" + minutes);
-//							currTimeZone.setText(DATE_FORMAT.format(date));
-//							millisec = 0;
-//						}
-//
-//						@Override
-//						public void onNothingSelected(AdapterView<?> parent) {
-//
-//						}
-//					});
 				}
 			});
 			
@@ -138,28 +106,11 @@ public class ShowTime extends AppCompatActivity {
 			listTime.setVisibility(View.INVISIBLE);
 
 			getTime();
-			
-			
-			/**
-			 * Spinner part
-			 */
-//			String[] ids = TimeZone.getAvailableIDs();
-//			availableId = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ids);
-//			availableId.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//			spinner.setAdapter(availableId);
-//			spinner.setVisibility(View.INVISIBLE);
-//
-//			getTime();
-			
-			
-			//		mTextMessage = (TextView) findViewById(R.id.message);
-			//		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-			//		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 		}
-		
-		public void getTime() {
+	
+	public void getTime() {
 			currentTime = (TextView) currentTime.findViewById(R.id.current_time);
-			
+			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm a, zzzz");
 			currentTime.setText(String.valueOf(c.getTime()));
 			currentTime.setText(DATE_FORMAT.format(c.getTime()));
 			millisec = c.getTimeInMillis();
@@ -171,6 +122,5 @@ public class ShowTime extends AppCompatActivity {
 			millisec -= offset;
 			date = new Date(millisec);
 			System.out.println(DATE_FORMAT.format(date));
-			//new SimpleDateFormat("EEE, d MMM yyyy HH:mm, zzzz", Locale.ENGLISH);
 		}
 }
