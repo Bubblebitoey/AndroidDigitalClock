@@ -84,7 +84,6 @@ public class ShowTime extends AppCompatActivity{
 					listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							//getTime();
 							String selectedID = (String) (parent.getItemAtPosition(position));
 							TimeZone timeZone = TimeZone.getTimeZone(selectedID);
 							String TimeZoneName = timeZone.getDisplayName();
