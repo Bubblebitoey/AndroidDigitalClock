@@ -67,73 +67,92 @@ public class ShowTime extends AppCompatActivity{
 			txtTimeZone = (TextView) findViewById(R.id.time_zone);
 			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 			
-			Thread t = new Thread() {
 			
-			  @Override
-			  public void run() {
-			    try {
-			      while (!isInterrupted()) {
-			        Thread.sleep(1000);
-			        runOnUiThread(new Runnable() {
-			          @Override
-			          public void run() {
-			            // update TextView here!
-				          viewTime();
-			          }
-			        });
-			      }
-			    } catch (InterruptedException e) {
-			    }
-			  }
-			};
+			listTime = (ListView) findViewById(R.id.listView);
+			mTime = (TextView) findViewById(R.id.current_time);
+			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
+			txtTimeZone = (TextView) findViewById(R.id.time_zone);
+			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+						
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					/**
+					 * List part
+					 */
+					listTime.setVisibility(View.VISIBLE);
+					listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							getTime();
+							String selectedID = (String) (parent.getItemAtPosition(position));
+							TimeZone timeZone = TimeZone.getTimeZone(selectedID);
+							String TimeZoneName = timeZone.getDisplayName();
+							
+							int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
+							int hours = timeZoneOffset / 60;
+							int minutes = timeZoneOffset % 60;
+							
+							millisec = millisec + timeZone.getRawOffset();
+							date = new Date(millisec);
+							//System.out.println(DATE_FORMAT.format(date));
 			
-			t.start();
+							txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
+							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
+							mTimeZone.setText(DATE_FORMAT.format(date));
+							millisec = 0;
+							//Add this after select item list will disappear
+							listTime.setVisibility(View.INVISIBLE);
+						}
+					});
+				}
+			});
 			
 			initList();
 			getTime();
 		}
 		
 		public void viewTime() {
-			listTime = (ListView) findViewById(R.id.listView);
-			mTime = (TextView) findViewById(R.id.current_time);
-			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
-			txtTimeZone = (TextView) findViewById(R.id.time_zone);
-			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-			
-			fab.setOnClickListener(new View.OnClickListener() {
-							@Override
-							public void onClick(View view) {
-								/**
-								 * List part
-								 */
-								listTime.setVisibility(View.VISIBLE);
-								listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-									@Override
-									public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-										getTime();
-										String selectedID = (String) (parent.getItemAtPosition(position));
-
-										TimeZone timeZone = TimeZone.getTimeZone(selectedID);
-										String TimeZoneName = timeZone.getDisplayName();
-
-										int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
-										int hours = timeZoneOffset / 60;
-										int minutes = timeZoneOffset % 60;
-										millisec = millisec + timeZone.getRawOffset();
-
-										date = new Date(millisec);
-										//System.out.println(DATE_FORMAT.format(date));
-
-										txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
-										DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
-										mTimeZone.setText(DATE_FORMAT.format(date));
-										millisec = 0;
-										//Add this after select item list will disappear
-										listTime.setVisibility(View.INVISIBLE);
-									}
-								});
-							}
-						});
+//			listTime = (ListView) findViewById(R.id.listView);
+//			mTime = (TextView) findViewById(R.id.current_time);
+//			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
+//			txtTimeZone = (TextView) findViewById(R.id.time_zone);
+//			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+//
+//			fab.setOnClickListener(new View.OnClickListener() {
+//							@Override
+//							public void onClick(View view) {
+//								/**
+//								 * List part
+//								 */
+//								listTime.setVisibility(View.VISIBLE);
+//								listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//									@Override
+//									public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//										getTime();
+//										String selectedID = (String) (parent.getItemAtPosition(position));
+//
+//										TimeZone timeZone = TimeZone.getTimeZone(selectedID);
+//										String TimeZoneName = timeZone.getDisplayName();
+//
+//										int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
+//										int hours = timeZoneOffset / 60;
+//										int minutes = timeZoneOffset % 60;
+//										millisec = millisec + timeZone.getRawOffset();
+//
+//										date = new Date(millisec);
+//										//System.out.println(DATE_FORMAT.format(date));
+//
+//										txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
+//										DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
+//										mTimeZone.setText(DATE_FORMAT.format(date));
+//										millisec = 0;
+//										//Add this after select item list will disappear
+//										listTime.setVisibility(View.INVISIBLE);
+//									}
+//								});
+//							}
+//						});
 		}
 		
 		public void initList() {
@@ -145,20 +164,42 @@ public class ShowTime extends AppCompatActivity{
 		}
 	
 	public void getTime() {
-		c = Calendar.getInstance();
-			mTime = (TextView) mTime.findViewById(R.id.current_time);
-			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm a, zzzz");
-			mTime.setText(String.valueOf(c.getInstance().getTime()));
-			millisec = c.getTimeInMillis();
-			TimeZone curr = c.getTimeZone();
-			int offset = curr.getRawOffset();
-			if (curr.inDaylightTime(new Date())) {
-				offset += curr.getDSTSavings();
-			}
-			millisec -= offset;
-			date = new Date(millisec);
-		    mTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
-		//	System.out.println(DATE_FORMAT.format(date));
+		
+		Thread t = new Thread() {
+		
+		  @Override
+		  public void run() {
+		    try {
+		      while (!isInterrupted()) {
+		        Thread.sleep(1000);
+		        runOnUiThread(new Runnable() {
+		          @Override
+		          public void run() {
+		            // update TextView here!
+			          
+			          c = Calendar.getInstance();
+			          			mTime = (TextView) mTime.findViewById(R.id.current_time);
+			          			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm a, zzzz");
+			          			mTime.setText(String.valueOf(c.getInstance().getTime()));
+			          			millisec = c.getTimeInMillis();
+			          			TimeZone curr = c.getTimeZone();
+			          			int offset = curr.getRawOffset();
+			          			if (curr.inDaylightTime(new Date())) {
+			          				offset += curr.getDSTSavings();
+			          			}
+			          			millisec -= offset;
+			          			date = new Date(millisec);
+			          		    mTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
+			          		//	System.out.println(DATE_FORMAT.format(date));
+		          }
+		        });
+		      }
+		    } catch (InterruptedException e) {
+		    }
+		  }
+		};
+		
+		t.start();
 		}
 }
 
