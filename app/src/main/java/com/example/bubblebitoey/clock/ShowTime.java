@@ -84,7 +84,7 @@ public class ShowTime extends AppCompatActivity{
 					listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							getTime();
+							//getTime();
 							String selectedID = (String) (parent.getItemAtPosition(position));
 							TimeZone timeZone = TimeZone.getTimeZone(selectedID);
 							String TimeZoneName = timeZone.getDisplayName();
@@ -179,7 +179,7 @@ public class ShowTime extends AppCompatActivity{
 			          
 			          c = Calendar.getInstance();
 			          			mTime = (TextView) mTime.findViewById(R.id.current_time);
-			          			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm a, zzzz");
+			          			DATE_FORMAT  = new SimpleDateFormat("EEE, d MMM yyyy HH:mm, zzzz");
 			          			mTime.setText(String.valueOf(c.getInstance().getTime()));
 			          			millisec = c.getTimeInMillis();
 			          			TimeZone curr = c.getTimeZone();
