@@ -85,7 +85,7 @@ public class ShowTime extends AppCompatActivity {
 							date = new Date(millisec);
 							System.out.println(DATE_FORMAT.format(date));
 							
-						    txtTimeZone.setText(TimeZoneName + " : GMT" + hours + ":" + minutes);
+							txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
 							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 							currTimeZone.setText(DATE_FORMAT.format(date));
 							millisec = 0;
@@ -99,13 +99,16 @@ public class ShowTime extends AppCompatActivity {
 			/**
 			 * List part
 			 */
-			String[] ids = TimeZone.getAvailableIDs();
-			availableId = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, ids);
-			availableId.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
-			listTime.setAdapter(availableId);
-			listTime.setVisibility(View.INVISIBLE);
-
+			initList();
 			getTime();
+		}
+		
+		public void initList() {
+			String[] ids = TimeZone.getAvailableIDs();
+						availableId = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, ids);
+						availableId.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+						listTime.setAdapter(availableId);
+						listTime.setVisibility(View.INVISIBLE);
 		}
 	
 	public void getTime() {
@@ -124,4 +127,5 @@ public class ShowTime extends AppCompatActivity {
 		    currentTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
 			System.out.println(DATE_FORMAT.format(date));
 		}
+	
 }
