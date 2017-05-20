@@ -67,7 +67,29 @@ public class ShowTime extends AppCompatActivity{
 			txtTimeZone = (TextView) findViewById(R.id.time_zone);
 			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 			
-			viewTime();
+			Thread t = new Thread() {
+			
+			  @Override
+			  public void run() {
+			    try {
+			      while (!isInterrupted()) {
+			        Thread.sleep(1000);
+			        runOnUiThread(new Runnable() {
+			          @Override
+			          public void run() {
+			            // update TextView here!
+				          
+				          viewTime();
+			          }
+			        });
+			      }
+			    } catch (InterruptedException e) {
+			    }
+			  }
+			};
+			
+			t.start();
+			
 			initList();
 			getTime();
 		}
@@ -99,28 +121,28 @@ public class ShowTime extends AppCompatActivity{
 							txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
 							
 							
-							Thread t = new Thread() {
-							
-							  @Override
-							  public void run() {
-							    try {
-							      while (!isInterrupted()) {
-							        Thread.sleep(1000);
-							        runOnUiThread(new Runnable() {
-							          @Override
-							          public void run() {
+//							Thread t = new Thread() {
+//
+//							  @Override
+//							  public void run() {
+//							    try {
+//							      while (!isInterrupted()) {
+//							        Thread.sleep(1000);
+//							        runOnUiThread(new Runnable() {
+//							          @Override
+//							          public void run() {
 								          DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 								          mTimeZone.setText(DATE_FORMAT.format(date));
 								          System.out.println("Date format: " + DATE_FORMAT.format(date));
-							          }
-							        });
-							      }
-							    } catch (InterruptedException e) {
-							    }
-							  }
-							};
-							
-							t.start();
+//							          }
+//							        });
+//							      }
+//							    } catch (InterruptedException e) {
+//							    }
+//							  }
+//							};
+//
+//							t.start();
 							
 							millisec = 0;
 							//Add this after select item list will disappear
@@ -164,6 +186,7 @@ public class ShowTime extends AppCompatActivity{
 			          millisec -= offset;
 			          date = new Date(millisec);
 			          mTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
+			          //	System.out.println(DATE_FORMAT.format(date));
 		          }
 		        });
 		      }
