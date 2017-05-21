@@ -3,7 +3,6 @@ package com.example.bubblebitoey.clock;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,8 +26,6 @@ public class ShowTime extends AppCompatActivity{
 	private EditText iptSearch;
 	private TextView mTime, mTimeZone, txtTimeZone;
 	private ListView listTime;
-	
-	private FloatingActionButton fab;
 	
 	private ArrayAdapter<String> availableId;
 	
@@ -78,7 +75,7 @@ public class ShowTime extends AppCompatActivity{
 			          @Override
 			          public void run() {
 			            // update TextView here!
-				          viewTime();
+				         viewTime();
 				          
 			          }
 			        });
@@ -99,84 +96,74 @@ public class ShowTime extends AppCompatActivity{
 			mTime = (TextView) findViewById(R.id.current_time);
 			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
 			txtTimeZone = (TextView) findViewById(R.id.time_zone);
-			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 			iptSearch = (EditText) findViewById(R.id.inputSearch);
 		}
 		
 		public void viewTime() {
-			fab.setOnClickListener(new View.OnClickListener() {
+			
+			iptSearch.addTextChangedListener(new TextWatcher() {
 				@Override
-				public void onClick(View view) {
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				}
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					ShowTime.this.availableId.getFilter().filter(s);
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
 					
-					iptSearch.addTextChangedListener(new TextWatcher() {
-						@Override
-						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-						}
-														
-						@Override
-						public void onTextChanged(CharSequence s, int start, int before, int count) {
-							ShowTime.this.availableId.getFilter().filter(s);
-						}
-														
-						@Override
-						public void afterTextChanged(Editable s) {
-															
-						}
-					});
+				}
+			});
+			
+			/**
+			 * List part
+			 */
+			listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					//getTime();
+					String selectedID = (String) (parent.getItemAtPosition(position));
 					
-					/**
-					 * List part
-					 */
-					listTime.setVisibility(View.VISIBLE);
-					listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-						
-						@Override
-						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							//getTime();
-							String selectedID = (String) (parent.getItemAtPosition(position));
-							
-							TimeZone timeZone = TimeZone.getTimeZone(selectedID);
-							String TimeZoneName = timeZone.getDisplayName();
-							
-							int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
-							int hours = timeZoneOffset / 60;
-							int minutes = timeZoneOffset % 60;
-							millisec = millisec + timeZone.getRawOffset();
-							
-							date = new Date(millisec);
-							
-							txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
-							
-							
-							//							Thread t = new Thread() {
-							//
-							//							  @Override
-							//							  public void run() {
-							//							    try {
-							//							      while (!isInterrupted()) {
-							//							        Thread.sleep(1000);
-							//							        runOnUiThread(new Runnable() {
-							//							          @Override
-							//							          public void run() {
-							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
-							mTimeZone.setText(DATE_FORMAT.format(date));
-							System.out.println("Date format: " + DATE_FORMAT.format(date));
-							//							          }
-							//							        });
-							//							      }
-							//							    } catch (InterruptedException e) {
-							//							    }
-							//							  }
-							//							};
-							//
-							//							t.start();
-							
-							millisec = 0;
-							//Toast.makeText(ShowTime.this,""+ selectedID, Toast.LENGTH_SHORT).show();
-							//Add this after select item list will disappear
-							listTime.setVisibility(View.INVISIBLE);
-						}
-					});
+					TimeZone timeZone = TimeZone.getTimeZone(selectedID);
+					String TimeZoneName = timeZone.getDisplayName();
+					
+					int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
+					int hours = timeZoneOffset / 60;
+					int minutes = timeZoneOffset % 60;
+					millisec = millisec + timeZone.getRawOffset();
+					
+					date = new Date(millisec);
+					
+					txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
+					
+					
+					//							Thread t = new Thread() {
+					//
+					//							  @Override
+					//							  public void run() {
+					//							    try {
+					//							      while (!isInterrupted()) {
+					//							        Thread.sleep(1000);
+					//							        runOnUiThread(new Runnable() {
+					//							          @Override
+					//							          public void run() {
+					DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
+					mTimeZone.setText(DATE_FORMAT.format(date));
+					System.out.println("Date format: " + DATE_FORMAT.format(date));
+					//							          }
+					//							        });
+					//							      }
+					//							    } catch (InterruptedException e) {
+					//							    }
+					//							  }
+					//							};
+					//
+					//							t.start();
+					
+					millisec = 0;
 				}
 			});
 		}
@@ -187,7 +174,6 @@ public class ShowTime extends AppCompatActivity{
 			availableId = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, ids);
 			availableId.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
 			listTime.setAdapter(availableId);
-			listTime.setVisibility(View.INVISIBLE);
 		}
 	
 	public void getTime() {
