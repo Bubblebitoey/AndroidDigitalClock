@@ -5,13 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -25,6 +24,7 @@ public class ShowTime extends AppCompatActivity{
 	private Calendar c;
 	
 	private TextView mTextMessage;
+	private EditText iptSearch;
 	private TextView mTime, mTimeZone, txtTimeZone;
 	private ListView listTime;
 	
@@ -79,6 +79,7 @@ public class ShowTime extends AppCompatActivity{
 			          public void run() {
 			            // update TextView here!
 				          viewTime();
+				          
 			          }
 			        });
 			      }
@@ -99,12 +100,29 @@ public class ShowTime extends AppCompatActivity{
 			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
 			txtTimeZone = (TextView) findViewById(R.id.time_zone);
 			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+			iptSearch = (EditText) findViewById(R.id.inputSearch);
 		}
 		
 		public void viewTime() {
 			fab.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
+					
+					iptSearch.addTextChangedListener(new TextWatcher() {
+						@Override
+						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+						}
+														
+						@Override
+						public void onTextChanged(CharSequence s, int start, int before, int count) {
+							ShowTime.this.availableId.getFilter().filter(s);
+						}
+														
+						@Override
+						public void afterTextChanged(Editable s) {
+															
+						}
+					});
 					
 					/**
 					 * List part
@@ -154,6 +172,7 @@ public class ShowTime extends AppCompatActivity{
 							//							t.start();
 							
 							millisec = 0;
+							//Toast.makeText(ShowTime.this,""+ selectedID, Toast.LENGTH_SHORT).show();
 							//Add this after select item list will disappear
 							listTime.setVisibility(View.INVISIBLE);
 						}
