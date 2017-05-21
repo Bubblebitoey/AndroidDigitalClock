@@ -21,6 +21,7 @@ import java.util.*;
 public class ShowTime extends AppCompatActivity{
 	
 	private Calendar c;
+	private TimeZone timeZone;
 	
 	private TextView mTextMessage;
 	private EditText iptSearch;
@@ -63,9 +64,11 @@ public class ShowTime extends AppCompatActivity{
 			setContentView(R.layout.activity_main);
 			
 			initialize();
+			initList();
+			getTime();
 			
 			Thread t = new Thread() {
-			
+
 			  @Override
 			  public void run() {
 			    try {
@@ -76,7 +79,6 @@ public class ShowTime extends AppCompatActivity{
 			          public void run() {
 			            // update TextView here!
 				         viewTime();
-				          
 			          }
 			        });
 			      }
@@ -86,9 +88,6 @@ public class ShowTime extends AppCompatActivity{
 			};
 			
 			t.start();
-			
-			initList();
-			getTime();
 		}
 		
 		public void initialize() {
@@ -109,6 +108,7 @@ public class ShowTime extends AppCompatActivity{
 				@Override
 				public void onTextChanged(CharSequence s, int start, int before, int count) {
 					ShowTime.this.availableId.getFilter().filter(s);
+					
 				}
 				
 				@Override
@@ -126,43 +126,43 @@ public class ShowTime extends AppCompatActivity{
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					//getTime();
 					String selectedID = (String) (parent.getItemAtPosition(position));
-					
+
 					TimeZone timeZone = TimeZone.getTimeZone(selectedID);
 					String TimeZoneName = timeZone.getDisplayName();
-					
+
 					int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
 					int hours = timeZoneOffset / 60;
 					int minutes = timeZoneOffset % 60;
 					millisec = millisec + timeZone.getRawOffset();
-					
+
 					date = new Date(millisec);
+
+					txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + ":" + minutes);
+				
 					
-					txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
-					
-					
-					//							Thread t = new Thread() {
-					//
-					//							  @Override
-					//							  public void run() {
-					//							    try {
-					//							      while (!isInterrupted()) {
-					//							        Thread.sleep(1000);
-					//							        runOnUiThread(new Runnable() {
-					//							          @Override
-					//							          public void run() {
+//												Thread t = new Thread() {
+//
+//												  @Override
+//												  public void run() {
+//												    try {
+//												      while (!isInterrupted()) {
+//												        Thread.sleep(1000);
+//												        runOnUiThread(new Runnable() {
+//												          @Override
+//												          public void run() {
 					DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 					mTimeZone.setText(DATE_FORMAT.format(date));
-					System.out.println("Date format: " + DATE_FORMAT.format(date));
-					//							          }
-					//							        });
-					//							      }
-					//							    } catch (InterruptedException e) {
-					//							    }
-					//							  }
-					//							};
-					//
-					//							t.start();
-					
+					//System.out.println("Date format: " + DATE_FORMAT.format(date));
+//												          }
+//												        });
+//												      }
+//												    } catch (InterruptedException e) {
+//												    }
+//												  }
+//												};
+//
+//												t.start();
+//
 					millisec = 0;
 				}
 			});
