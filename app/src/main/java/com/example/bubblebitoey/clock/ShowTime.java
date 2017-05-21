@@ -66,28 +66,29 @@ public class ShowTime extends AppCompatActivity{
 			initialize();
 			initList();
 			getTime();
+			viewTime();
 			
-			Thread t = new Thread() {
-
-			  @Override
-			  public void run() {
-			    try {
-			      while (!isInterrupted()) {
-			        Thread.sleep(1000);
-			        runOnUiThread(new Runnable() {
-			          @Override
-			          public void run() {
-			            // update TextView here!
-				         viewTime();
-			          }
-			        });
-			      }
-			    } catch (InterruptedException e) {
-			    }
-			  }
-			};
-			
-			t.start();
+//			Thread t = new Thread() {
+//
+//			  @Override
+//			  public void run() {
+//			    try {
+//			      while (!isInterrupted()) {
+//			        Thread.sleep(1000);
+//			        runOnUiThread(new Runnable() {
+//			          @Override
+//			          public void run() {
+//			            // update TextView here!
+//				         viewTime();
+//			          }
+//			        });
+//			      }
+//			    } catch (InterruptedException e) {
+//			    }
+//			  }
+//			};
+//
+//			t.start();
 		}
 		
 		public void initialize() {
@@ -99,35 +100,19 @@ public class ShowTime extends AppCompatActivity{
 		}
 		
 		public void viewTime() {
-			
-			iptSearch.addTextChangedListener(new TextWatcher() {
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				}
-				
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					ShowTime.this.availableId.getFilter().filter(s);
-					
-				}
-				
-				@Override
-				public void afterTextChanged(Editable s) {
-					
-				}
-			});
-			
+
+			search();
+
 			/**
 			 * List part
 			 */
 			listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				
+
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					//getTime();
 					String selectedID = (String) (parent.getItemAtPosition(position));
 
-					TimeZone timeZone = TimeZone.getTimeZone(selectedID);
+					timeZone = TimeZone.getTimeZone(selectedID);
 					String TimeZoneName = timeZone.getDisplayName();
 
 					int timeZoneOffset = timeZone.getRawOffset() / (60 * 1000);
@@ -137,32 +122,11 @@ public class ShowTime extends AppCompatActivity{
 
 					date = new Date(millisec);
 
-					txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + ":" + minutes);
-				
+					txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID());
 					
-//												Thread t = new Thread() {
-//
-//												  @Override
-//												  public void run() {
-//												    try {
-//												      while (!isInterrupted()) {
-//												        Thread.sleep(1000);
-//												        runOnUiThread(new Runnable() {
-//												          @Override
-//												          public void run() {
 					DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
 					mTimeZone.setText(DATE_FORMAT.format(date));
-					//System.out.println("Date format: " + DATE_FORMAT.format(date));
-//												          }
-//												        });
-//												      }
-//												    } catch (InterruptedException e) {
-//												    }
-//												  }
-//												};
-//
-//												t.start();
-//
+					System.out.println("Date format out: " + DATE_FORMAT.format(date));
 					millisec = 0;
 				}
 			});
@@ -211,6 +175,25 @@ public class ShowTime extends AppCompatActivity{
 		};
 		
 		t.start();
+		}
+		
+		public void search() {
+			iptSearch.addTextChangedListener(new TextWatcher() {
+							@Override
+							public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+							}
+							
+							@Override
+							public void onTextChanged(CharSequence s, int start, int before, int count) {
+								ShowTime.this.availableId.getFilter().filter(s);
+								
+							}
+							
+							@Override
+							public void afterTextChanged(Editable s) {
+								
+							}
+						});
 		}
 }
 
