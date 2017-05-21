@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,9 +33,11 @@ public class ShowTime extends AppCompatActivity{
 	private ArrayAdapter<String> availableId;
 	
 	private long millisec;
+	private String[] ids;
 	
 	private Date date;
 	private SimpleDateFormat DATE_FORMAT;
+	private Menu menu;
 	
 		    
 	private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,17 +58,14 @@ public class ShowTime extends AppCompatActivity{
 				return false;
 			}
 		};
-		
+	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
+			
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
 			
-			listTime = (ListView) findViewById(R.id.listView);
-			mTime = (TextView) findViewById(R.id.current_time);
-			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
-			txtTimeZone = (TextView) findViewById(R.id.time_zone);
-			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+			initialize();
 			
 			Thread t = new Thread() {
 			
@@ -78,7 +78,6 @@ public class ShowTime extends AppCompatActivity{
 			          @Override
 			          public void run() {
 			            // update TextView here!
-				          
 				          viewTime();
 			          }
 			        });
@@ -94,15 +93,25 @@ public class ShowTime extends AppCompatActivity{
 			getTime();
 		}
 		
+		public void initialize() {
+			listTime = (ListView) findViewById(R.id.listView);
+			mTime = (TextView) findViewById(R.id.current_time);
+			mTimeZone = (TextView) findViewById(R.id.curr_time_zone);
+			txtTimeZone = (TextView) findViewById(R.id.time_zone);
+			fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+		}
+		
 		public void viewTime() {
 			fab.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
+					
 					/**
 					 * List part
 					 */
 					listTime.setVisibility(View.VISIBLE);
 					listTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							//getTime();
@@ -121,28 +130,28 @@ public class ShowTime extends AppCompatActivity{
 							txtTimeZone.setText(TimeZoneName + ", " + timeZone.getID() + " : GMT" + hours + ":" + minutes);
 							
 							
-//							Thread t = new Thread() {
-//
-//							  @Override
-//							  public void run() {
-//							    try {
-//							      while (!isInterrupted()) {
-//							        Thread.sleep(1000);
-//							        runOnUiThread(new Runnable() {
-//							          @Override
-//							          public void run() {
-								          DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
-								          mTimeZone.setText(DATE_FORMAT.format(date));
-								          System.out.println("Date format: " + DATE_FORMAT.format(date));
-//							          }
-//							        });
-//							      }
-//							    } catch (InterruptedException e) {
-//							    }
-//							  }
-//							};
-//
-//							t.start();
+							//							Thread t = new Thread() {
+							//
+							//							  @Override
+							//							  public void run() {
+							//							    try {
+							//							      while (!isInterrupted()) {
+							//							        Thread.sleep(1000);
+							//							        runOnUiThread(new Runnable() {
+							//							          @Override
+							//							          public void run() {
+							DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm ");
+							mTimeZone.setText(DATE_FORMAT.format(date));
+							System.out.println("Date format: " + DATE_FORMAT.format(date));
+							//							          }
+							//							        });
+							//							      }
+							//							    } catch (InterruptedException e) {
+							//							    }
+							//							  }
+							//							};
+							//
+							//							t.start();
 							
 							millisec = 0;
 							//Add this after select item list will disappear
@@ -152,9 +161,10 @@ public class ShowTime extends AppCompatActivity{
 				}
 			});
 		}
-		
-		public void initList() {
-			String[] ids = TimeZone.getAvailableIDs();
+	
+	
+	public void initList() {
+			ids = TimeZone.getAvailableIDs();
 			availableId = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, ids);
 			availableId.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
 			listTime.setAdapter(availableId);
@@ -186,7 +196,6 @@ public class ShowTime extends AppCompatActivity{
 			          millisec -= offset;
 			          date = new Date(millisec);
 			          mTime.setText(DATE_FORMAT.format(c.getTime()) +" , " + curr.getID());
-			          //	System.out.println(DATE_FORMAT.format(date));
 		          }
 		        });
 		      }

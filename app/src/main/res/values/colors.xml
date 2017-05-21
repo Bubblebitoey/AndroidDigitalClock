@@ -3,5 +3,8 @@
     <color name="colorPrimary">#ef9a9a</color>
     <color name="colorPrimaryDark">#ba6b6c</color>
     <color name="colorAccent">#ffcccb</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorFloatingAction">#af4448</color>color>
+    <color name="colorTxt">#e57373</color>color>
 
 </resources>

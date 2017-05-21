@@ -12,50 +12,57 @@
         tools:context="com.example.bubblebitoey.clock.MainActivity">
 
 
-    <TextClock
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textClock5"
-            android:layout_weight="0.09"/>
-
     <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="433dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="start"
+                android:textSize="30dp"
+                android:textColor="@color/colorFloatingAction"
                 android:text="Current time"/>
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorTxt"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
                 android:id="@+id/current_time"/>
 
         <android.support.design.widget.FloatingActionButton
+                app:rippleColor="@color/colorFloatingAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:clickable="true"
-                app:fabSize="mini"
+                app:fabSize="normal"
                 app:srcCompat="@android:drawable/ic_input_add"
                 android:id="@+id/floatingActionButton"/>
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:textColor="@color/colorTxt"
+                android:textSize="20dp"
                 android:id="@+id/time_zone"/>
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorTxt"
+                android:textSize="20dp"
                 android:id="@+id/curr_time_zone"/>
 
         <ListView
@@ -65,17 +72,17 @@
                 android:layout_weight="1.00"/>
 
 
+        <android.support.design.widget.BottomNavigationView
+                   android:id="@+id/navigation"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:background="@color/colorAccent"
+                   app:itemIconTint="@color/colorPrimary"
+                   app:menu="@menu/navigation">
+
+           </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
-    <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
-            app:itemIconTint="@color/colorPrimary"
-            app:menu="@menu/navigation">
-
-    </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>

@@ -12,11 +12,11 @@
         tools:context="com.example.bubblebitoey.clock.MainActivity">
 
 
-    <TextClock
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textClock5"
-            android:layout_weight="0.09"/>
+    <!--<TextClock-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/textClock5"-->
+            <!--android:layout_weight="0.09"/>-->
 
     <LinearLayout
             android:id="@+id/content"
