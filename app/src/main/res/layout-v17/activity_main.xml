@@ -39,14 +39,14 @@
                 android:id="@+id/current_time"/>
 
         <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="start"
-                        android:textSize="30dp"
-                        android:textColor="@color/colorFloatingAction"
-                        android:text="Selected Time"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="start"
+                android:textSize="30dp"
+                android:textColor="@color/colorFloatingAction"
+                android:text="Selected Time"/>
 
         <TextView
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Search here"
+                android:hint="@string/search_here"
                 android:textColor="@color/colorPrimary"
                 android:ems="10"
                 android:id="@+id/inputSearch"/>
@@ -82,15 +82,15 @@
 
 
         <android.support.design.widget.BottomNavigationView
-                   android:id="@+id/navigation"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentBottom="true"
-                   android:background="@color/colorAccent"
-                   app:itemIconTint="@color/colorPrimary"
-                   app:menu="@menu/navigation">
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorAccent"
+                app:itemIconTint="@color/colorPrimary"
+                app:menu="@menu/navigation">
 
-           </android.support.design.widget.BottomNavigationView>
+        </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
 
