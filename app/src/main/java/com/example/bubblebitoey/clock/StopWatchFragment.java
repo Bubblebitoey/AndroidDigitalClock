@@ -64,7 +64,7 @@ public class StopWatchFragment extends Fragment {
 					mStarted = false;
 					mHandler.removeCallbacks(mRunnable);
 					
-					imgStart.setImageResource(R.drawable.ic_autorenew_black_24dp);
+					imgStart.setImageResource(R.drawable.replay_ic);
 					btnState = 3;
 				} else if(btnState == 3) {
 					timeView.setText(String.format("%02d:%02d:%02d", 0, 0, 0));
