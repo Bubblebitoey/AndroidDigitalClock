@@ -25,7 +25,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="start"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textColor="@color/colorFloatingAction"
                 android:text="Current time"/>
 
@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:textColor="@color/colorTxt"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:id="@+id/current_time"/>
 
         <TextView
@@ -44,17 +44,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="start"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textColor="@color/colorFloatingAction"
                 android:text="Selected Time"/>
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:textColor="@color/colorTxt"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:id="@+id/time_zone"/>
 
         <TextView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/colorTxt"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:id="@+id/curr_time_zone"/>
 
         <EditText
@@ -72,25 +72,14 @@
                 android:hint="@string/search_here"
                 android:textColor="@color/colorPrimary"
                 android:ems="10"
-                android:id="@+id/inputSearch"/>
+                android:id="@+id/inputSearch"
+                android:textSize="15dp"/>
 
         <ListView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:id="@+id/listView"
                 android:layout_weight="1.00"/>
-
-
-        <android.support.design.widget.BottomNavigationView
-                android:id="@+id/navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorAccent"
-                app:itemIconTint="@color/colorPrimary"
-                app:menu="@menu/navigation">
-
-        </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
 

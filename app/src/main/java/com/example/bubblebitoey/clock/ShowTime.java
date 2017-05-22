@@ -76,28 +76,6 @@ public class ShowTime extends AppCompatActivity {
 		initList();
 		getTime();
 		viewTime();
-		
-		//			Thread t = new Thread() {
-		//
-		//			  @Override
-		//			  public void run() {
-		//			    try {
-		//			      while (!isInterrupted()) {
-		//			        Thread.sleep(1000);
-		//			        runOnUiThread(new Runnable() {
-		//			          @Override
-		//			          public void run() {
-		//			            // update TextView here!
-		//				         viewTime();
-		//			          }
-		//			        });
-		//			      }
-		//			    } catch (InterruptedException e) {
-		//			    }
-		//			  }
-		//			};
-		//
-		//			t.start();
 	}
 	
 	public void initialize() {
