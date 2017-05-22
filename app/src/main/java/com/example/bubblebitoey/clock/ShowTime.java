@@ -1,6 +1,5 @@
 package com.example.bubblebitoey.clock;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -52,9 +51,6 @@ public class ShowTime extends AppCompatActivity {
 		@Override
 		public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 			switch (item.getItemId()) {
-				case R.id.navigation_alarm:
-					mTextMessage.setText(R.string.menu_alarm);
-					return true;
 				case R.id.navigation_clock:
 					mTextMessage.setText(R.string.menu_clock);
 					return true;
@@ -66,17 +62,17 @@ public class ShowTime extends AppCompatActivity {
 		}
 	};
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		initialize();
-		initList();
-		getTime();
-		viewTime();
-	}
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.activity_main);
+//
+//		initialize();
+//		initList();
+//		getTime();
+//		viewTime();
+//	}
 	
 	public void initialize() {
 		listTime = (ListView) findViewById(R.id.listView);

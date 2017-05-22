@@ -5,10 +5,6 @@
             android:id="@+id/navigation_clock"
             android:icon="@drawable/ic_clock_24dp"
             android:title="@string/menu_clock"/>
-    <item
-                android:id="@+id/navigation_alarm"
-                android:icon="@drawable/ic_alarm_black_24dp"
-                android:title="@string/menu_alarm"/>
 
 
     <item
