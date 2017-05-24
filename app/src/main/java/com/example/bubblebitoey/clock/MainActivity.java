@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
-	
 	private ViewPager viewPager;
+	private ViewPagerAdapter adapter;
 	
 	private BottomNavigationView navigation;
 	
@@ -62,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
 		ShowTimeFragment showTimeFragment = new ShowTimeFragment().setPresenter(new ClockPresenter(this));
 		StopWatchFragment stopWatchFragment = new StopWatchFragment();
 		
-		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 		adapter.addFragment(showTimeFragment);
 		adapter.addFragment(stopWatchFragment);
 		viewPager.setAdapter(adapter);
+	}
+	
+	public Fragment getCurrentFragment() {
+		return adapter.getItem(viewPager.getCurrentItem());
 	}
 }

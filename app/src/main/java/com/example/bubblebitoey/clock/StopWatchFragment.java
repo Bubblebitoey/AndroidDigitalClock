@@ -54,7 +54,7 @@ public class StopWatchFragment extends Fragment {
 			public void onClick(View v) {
 				if(btnState == 1) {
 					mStarted = true;
-					mHandler.postDelayed(mRunnable, 1000);
+					mHandler.postDelayed(mRunnable, 0);
 					start_time = System.currentTimeMillis();
 					laps ="";
 					
@@ -80,9 +80,12 @@ public class StopWatchFragment extends Fragment {
 				if(mStarted) {
 					lapsCount++;
 					laps = laps + String.valueOf(lapsCount) + ". " + timeView.getText().toString() + "\n";
+					Toast.makeText(StopWatchFragment.super.getContext(), "Lap", Toast.LENGTH_SHORT).show();
+					System.out.println("in side if mStarted"+ laps);
 				} else {
 					if(laps.equalsIgnoreCase("")) {
-						Toast.makeText(StopWatchFragment.super.getContext(), "empty", Toast.LENGTH_SHORT).show();
+						Toast.makeText(StopWatchFragment.super.getContext(), "Empty", Toast.LENGTH_SHORT).show();
+						System.out.println("in side if mStarted"+ laps);
 					} else {
 						AlertDialog.Builder alertDialogBuiler = new AlertDialog.Builder(StopWatchFragment.super.getContext());
 						alertDialogBuiler.setMessage(laps);
