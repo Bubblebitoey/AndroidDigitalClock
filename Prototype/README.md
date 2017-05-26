@@ -1,7 +1,7 @@
 # Prototype
 This prototypr made by using Axure RP </br>
 To see the prototype of Digital Clock </br>
-[Please click here](http://127.0.0.1:32767/start.html#p=home&g=1)
+[Please click here](http://x2l3ss.axshare.com)
 
 ## Step 
 1.  You're on Home page you can click at search bar to search(assume that it is real search). </br>
