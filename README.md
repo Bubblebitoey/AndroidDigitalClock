@@ -8,7 +8,7 @@ Second is couting time.<br />
 This project available for Android Studio 3.0 Canary 1 <br />
 To import this project make sure you're using Android Studio 3.0 Canary 1
 
-#To visit on GitHub
+# To visit on GitHub
 [Please click here](https://github.com/Bubblebitoey/AndroidDigitalClock/)
 
 # Creator
