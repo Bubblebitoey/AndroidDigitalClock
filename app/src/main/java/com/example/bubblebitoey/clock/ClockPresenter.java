@@ -11,7 +11,7 @@ public class ClockPresenter {
 	
 	private AppCompatActivity appCompatActivity;
 	
-	ClockPresenter(AppCompatActivity appCompatActivity) {
+	public ClockPresenter(AppCompatActivity appCompatActivity) {
 		this.appCompatActivity = appCompatActivity;
 	}
 	
