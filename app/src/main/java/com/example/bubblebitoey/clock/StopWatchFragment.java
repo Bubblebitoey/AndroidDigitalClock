@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +19,7 @@ import android.widget.Toast;
 public class StopWatchFragment extends Fragment {
 	
 	private TextView timeView;
-	private Button btnStart;
-	private Button btnLap;
+	
 	private ImageView imgStart;
 	private ImageView imgLap;
 	
@@ -67,9 +65,10 @@ public class StopWatchFragment extends Fragment {
 					imgStart.setImageResource(R.drawable.replay_ic);
 					btnState = 3;
 				} else if(btnState == 3) {
-					timeView.setText(String.format("%02d:%02d:%02d", 0, 0, 0));
+					timeView.setText(String.format("%02d:%02d:%02d:%03d", 0, 0, 0, 0));
 					laps = "";
 					btnState = 1;
+					imgStart.setImageResource(R.drawable.timer_l);
 				}
 			}
 		});
@@ -110,8 +109,12 @@ public class StopWatchFragment extends Fragment {
 		public void run() {
 			if(mStarted) {
 				long milliseconds = (System.currentTimeMillis() - start_time);
-				long seconds = milliseconds / 100;
-				timeView.setText(String.format("%02d:%02d:%02d", seconds / 60, seconds % 60, milliseconds % 100));
+				
+				long seconds = (milliseconds / 1000) % 60;
+				long minutes = (milliseconds / 60000) % 60;
+				long hours = (milliseconds / 3600000) % 60;
+				long milli = milliseconds % 1000;
+				timeView.setText(String.format("%02d:%02d:%02d:%03d", hours, minutes, seconds, milli));
 				mHandler.postDelayed(mRunnable, 10L);
 			}
 			
